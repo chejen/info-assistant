@@ -1,0 +1,30 @@
+name: Get weather information
+
+on:
+  schedule:
+    - cron: '0 14 * * *' # 22:00 UTC+8
+
+jobs:
+  job-fetch-weather-info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+      - name: Setup corepack
+        run: corepack enable
+      - name: Fetch data
+        env:
+          INFO_WEATHER_BASE_URL: ${{ secrets.INFO_WEATHER_BASE_URL }}
+          INFO_WEATHER_TARGETS: ${{ secrets.INFO_WEATHER_TARGETS }}
+          MAIL_RECIPIENT: ${{ secrets.MAIL_RECIPIENT }}
+          MAIL_SENDER_PASS: ${{ secrets.MAIL_SENDER_PASS }}
+          MAIL_SENDER_USER: ${{ secrets.MAIL_SENDER_USER }}
+          MAIL_SERVER_HOST: ${{ secrets.MAIL_SERVER_HOST }}
+          MAIL_SERVER_PORT: ${{ secrets.MAIL_SERVER_PORT }}
+        run: |
+          yarn
+          yarn get:info:weather

@@ -62,4 +62,5 @@ const fetchInfo = async () => {
   return info;
 }
 
-fetchInfo().then(html => sendMail({ subject: 'Daily Weather', html }));
+fetchInfo().then(html =>
+  sendMail({ subject: 'GitHub Actions - Daily Weather Info.', html }));

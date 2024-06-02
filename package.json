@@ -11,7 +11,8 @@
   },
   "packageManager": "yarn@4.0.2",
   "scripts": {
-    "get:info": "dotenvx run -- node src/weather"
+    "get:info:weather:dev": "dotenvx run -- node src/weather",
+    "get:info:weather": "node src/weather"
   },
   "dependencies": {
     "@dotenvx/dotenvx": "~0.44.1",
