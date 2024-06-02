@@ -1,0 +1,22 @@
+{
+  "name": "info-assistant",
+  "version": "1.0.0",
+  "description": "Daily information provider",
+  "main": "index.js",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "20.14.0",
+    "yarn": "4.0.2"
+  },
+  "packageManager": "yarn@4.0.2",
+  "scripts": {
+    "get:info": "dotenvx run -- node src/index"
+  },
+  "dependencies": {
+    "@dotenvx/dotenvx": "~0.44.1",
+    "nodemailer": "^6.9.13"
+  },
+  "author": "chejen",
+  "license": "MIT"
+}
