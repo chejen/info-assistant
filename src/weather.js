@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { load } from 'cheerio';
 import { sendMail } from '../util/sendMail.js';
 import sleep from '../util/sleep.js';
@@ -11,10 +10,10 @@ const converse = (fahrenheit) => {
   return isNaN(f) ? '' : Math.round((f - 32) * 0.5556) + '°C';
 }
 
-const parse = id => axios
-  .get(`${baseUrl}${id}`)
-  .then(response => {
-    const $ = load(response.data);
+const parse = id => fetch(`${baseUrl}${id}`)
+  .then(response => response.text())
+  .then(text => {
+    const $ = load(text);
     const data = [];
 
     $('[id^="detailIndex"]').each((index, detail) => {

@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "@dotenvx/dotenvx": "~0.44.1",
-    "axios": "^1.7.2",
     "cheerio": "1.0.0-rc.12",
     "nodemailer": "^6.9.13"
   },
