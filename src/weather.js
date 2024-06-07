@@ -1,6 +1,6 @@
+import { setTimeout } from 'node:timers/promises';
 import { load } from 'cheerio';
 import { sendMail } from '../util/sendMail.js';
-import sleep from '../util/sleep.js';
 
 const baseUrl = process.env.INFO_WEATHER_BASE_URL;
 const targets = (process.env.INFO_WEATHER_TARGETS || '').split(',');
@@ -37,7 +37,7 @@ const fetchInfo = async () => {
   let info = '';
   try {
     for (const target of targets) {
-      await sleep(1234);
+      await setTimeout(1234);
       const { title, data } = await parse(target);
       info += `
         <p>
