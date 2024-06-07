@@ -1,0 +1,30 @@
+name: Get travel-taipei information
+
+on:
+  schedule:
+    - cron: '55 4 * * 5' # 12:55 Fri UTC+8
+
+jobs:
+  job-fetch-travel-taipei-info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+      - name: Setup corepack
+        run: corepack enable
+      - name: Fetch data
+        env:
+          INFO_TRAVEL_TAIPEI_ORIGIN: ${{ secrets.INFO_TRAVEL_TAIPEI_ORIGIN }}
+          INFO_TRAVEL_TAIPEI_PATHNAME: ${{ secrets.INFO_TRAVEL_TAIPEI_PATHNAME }}
+          MAIL_RECIPIENT: ${{ secrets.MAIL_RECIPIENT }}
+          MAIL_SENDER_PASS: ${{ secrets.MAIL_SENDER_PASS }}
+          MAIL_SENDER_USER: ${{ secrets.MAIL_SENDER_USER }}
+          MAIL_SERVER_HOST: ${{ secrets.MAIL_SERVER_HOST }}
+          MAIL_SERVER_PORT: ${{ secrets.MAIL_SERVER_PORT }}
+        run: |
+          yarn
+          yarn get:info:travel-taipei
