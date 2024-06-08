@@ -1,0 +1,35 @@
+name: Reusable workflow for repetitive jobs
+
+on:
+  workflow_call:
+    inputs:
+      file-name:
+        required: true
+        type: string
+
+jobs:
+  job-fetch-information:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+      - name: Setup corepack
+        run: corepack enable
+      - name: Fetch data and send mail
+        env:
+          INFO_TRAVEL_TAIPEI_ORIGIN: ${{ secrets.INFO_TRAVEL_TAIPEI_ORIGIN }}
+          INFO_TRAVEL_TAIPEI_PATHNAME: ${{ secrets.INFO_TRAVEL_TAIPEI_PATHNAME }}
+          INFO_WEATHER_BASE_URL: ${{ secrets.INFO_TRAVEL_TAIPEI_ORIGIN }}
+          INFO_WEATHER_TARGETS: ${{ secrets.INFO_WEATHER_TARGETS }}
+          MAIL_RECIPIENT: ${{ secrets.MAIL_RECIPIENT }}
+          MAIL_SENDER_PASS: ${{ secrets.MAIL_SENDER_PASS }}
+          MAIL_SENDER_USER: ${{ secrets.MAIL_SENDER_USER }}
+          MAIL_SERVER_HOST: ${{ secrets.MAIL_SERVER_HOST }}
+          MAIL_SERVER_PORT: ${{ secrets.MAIL_SERVER_PORT }}
+        run: |
+          yarn
+          node src/${{ inputs.file-name }}
