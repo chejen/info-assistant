@@ -19,6 +19,7 @@ export async function sendMail(config) {
     });
     console.log('[%s] Message sent: %s', new Date(), info.messageId);
   } catch (e) {
-    console.error('\n[ERR]', e);
+    console.error(`[${new Date()}][ERR] failed to send email.`);
+    throw e;
   }
 }

@@ -21,8 +21,9 @@ const getData = url => fetch(url)
     console.log(`[${new Date()}] "Travel Taipei" has parsed.`);
     return data;
   })
-  .catch(error => {
-    return Promise.reject(error);
+  .catch(e => {
+    console.error(`[${new Date()}][ERR] failed to execute getData().`);
+    throw e;
   });
 
 const generateTemplate = async () => {
@@ -40,7 +41,7 @@ const generateTemplate = async () => {
     `;
   } catch (e) {
     console.error(`[${new Date()}][ERR] failed to generate html template.`);
-    console.error(e);
+    throw e;
   }
 
   return template;
@@ -52,8 +53,4 @@ generateTemplate()
       console.error(`[${new Date()}][ERR] empty template.`);
     }
     sendMail({ subject: '[GitHub Actions] Weekly Travel in Taipei', html });
-  })
-  .catch(e => {
-    console.error(`[${new Date()}][ERR] failed to send email.`);
-    console.error(e);
   });

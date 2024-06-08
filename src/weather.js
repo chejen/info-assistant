@@ -24,8 +24,9 @@ const getData = id => fetch(`${baseUrl}${id}`)
     console.log(`[${new Date()}] ${baseUrl}${id} has parsed.`);
     return { data, title: $('[data-testid="PresentationName"]').text() };
   })
-  .catch(error => {
-    return Promise.reject(error);
+  .catch(e => {
+    console.error(`[${new Date()}][ERR] failed to execute getData().`);
+    throw e;
   });
 
 const convertFahrenheitToCelsius = (fahrenheit) => {
@@ -63,11 +64,16 @@ const generateTemplate = async () => {
     }
   } catch (e) {
     console.error(`[${new Date()}][ERR] failed to generate html template.`);
-    console.error(e);
+    throw e;
   }
 
   return template;
 }
 
 generateTemplate()
-  .then(html => sendMail({ subject: '[GitHub Actions] Daily Weather', html }));
+  .then(html => {
+    if (!html) {
+      console.error(`[${new Date()}][ERR] empty template.`);
+    }
+    sendMail({ subject: '[GitHub Actions] Daily Weather', html });
+  });
