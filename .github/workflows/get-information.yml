@@ -8,28 +8,24 @@ on:
         type: string
 
 jobs:
-  job-fetch-information:
+  job-get-information:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the code
         uses: actions/checkout@v4
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: latest
-      - name: Setup corepack
-        run: corepack enable
-      - name: Fetch data and send mail
+      - name: Install jq
+        run: sudo apt-get install -y jq
+      - name: Set all secrets to env
         env:
-          INFO_TRAVEL_TAIPEI_ORIGIN: ${{ secrets.INFO_TRAVEL_TAIPEI_ORIGIN }}
-          INFO_TRAVEL_TAIPEI_PATHNAME: ${{ secrets.INFO_TRAVEL_TAIPEI_PATHNAME }}
-          INFO_WEATHER_BASE_URL: ${{ secrets.INFO_TRAVEL_TAIPEI_ORIGIN }}
-          INFO_WEATHER_TARGETS: ${{ secrets.INFO_WEATHER_TARGETS }}
-          MAIL_RECIPIENT: ${{ secrets.MAIL_RECIPIENT }}
-          MAIL_SENDER_PASS: ${{ secrets.MAIL_SENDER_PASS }}
-          MAIL_SENDER_USER: ${{ secrets.MAIL_SENDER_USER }}
-          MAIL_SERVER_HOST: ${{ secrets.MAIL_SERVER_HOST }}
-          MAIL_SERVER_PORT: ${{ secrets.MAIL_SERVER_PORT }}
+          ALL_SECRETS: ${{ toJSON(secrets) }}
         run: |
+          echo $ALL_SECRETS | jq -r 'to_entries | .[] | "echo \(.key)=\(.value) >> $GITHUB_ENV"' | bash
+      - name: Fetch data & send mail
+        run: |
+          corepack enable
           yarn
           node src/${{ inputs.file-name }}
