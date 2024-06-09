@@ -13,11 +13,11 @@ export async function sendMail(config) {
       }
     });
     const shortSha = process.env.SHORT_COMMIT_SHA
-      ? `[${process.env.SHORT_COMMIT_SHA}]`
+      ? ` (${process.env.SHORT_COMMIT_SHA})`
       : '';
     const info = await transporter.sendMail({
       ...config,
-      subject: `[GitHub Actions]${shortSha} ${config.subject}`,
+      subject: `[GitHub Actions] ${config.subject}${shortSha}`,
       from: `'Info. Sender' <${process.env.MAIL_SENDER_USER}>`,
       to: process.env.MAIL_RECIPIENT,
     });

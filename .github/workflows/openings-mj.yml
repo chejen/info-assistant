@@ -1,0 +1,12 @@
+name: Get openings-mj information
+
+on:
+  schedule:
+    - cron: '30 1 * * 6' # 9:30 Sat UTC+8
+
+jobs:
+  job-get-openings-mj-info:
+    uses: ./.github/workflows/get-information.yml
+    secrets: inherit
+    with:
+      file-name: openings-mj

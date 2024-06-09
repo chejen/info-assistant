@@ -18,7 +18,9 @@ jobs:
         with:
           node-version: latest
       - name: Get short commit SHA
-        run: echo "SHORT_COMMIT_SHA=$(git rev-parse --short HEAD)" >> .env
+        run: |
+          git rev-parse --short HEAD
+          echo "SHORT_COMMIT_SHA=$(git rev-parse --short HEAD)" >> .env
       - name: Install jq
         run: sudo apt-get install -y jq
       - name: Set all secrets to .env
@@ -26,6 +28,7 @@ jobs:
           ALL_SECRETS: ${{ toJSON(secrets) }}
         run: |
           echo $ALL_SECRETS | jq -r 'to_entries | .[] | "echo \(.key)=\(.value) >> .env"' | bash
+          cat .env
       - name: Fetch data & send mail
         run: |
           corepack enable
