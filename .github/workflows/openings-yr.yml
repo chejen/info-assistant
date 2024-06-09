@@ -1,0 +1,12 @@
+name: Get openings-yr information
+
+on:
+  schedule:
+    - cron: '40 1 * * 6' # 9:40 Sat UTC+8
+
+jobs:
+  job-get-openings-yr-info:
+    uses: ./.github/workflows/get-information.yml
+    secrets: inherit
+    with:
+      file-name: openings-yr
