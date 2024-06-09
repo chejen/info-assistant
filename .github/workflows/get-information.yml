@@ -27,7 +27,7 @@ jobs:
         env:
           ALL_SECRETS: ${{ toJSON(secrets) }}
         run: |
-          echo $ALL_SECRETS | jq -r 'to_entries | .[] | "echo \(.key)=\(.value) >> .env"' | bash
+          echo $ALL_SECRETS | jq -r 'to_entries | .[] | @sh "printf \"%s=%s\n\" \(.key) \(.value) >> .env"' | bash
           cat .env
       - name: Fetch data & send mail
         run: |

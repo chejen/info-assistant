@@ -17,7 +17,7 @@ const getData = url => fetch(url)
 const generateTemplate = async () => {
   let template = '';
   try {
-    const data = await getData(targetUrl.replaceAll('~~', '=').replaceAll('??', '&'));
+    const data = await getData(targetUrl);
     template = `
       <section>
         <h1>${process.env.INFO_OPENINGS_YR_HEADING}</h1>

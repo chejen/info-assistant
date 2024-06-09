@@ -17,7 +17,7 @@ const getData = url => fetch(url)
 const generateTemplate = async () => {
   let template = '';
   try {
-    const data = await getData(targetUrl.replaceAll('~~', '=').replaceAll('??', '&'));
+    const data = await getData(targetUrl);
     template = `
       <section>
         <h1>Taiwan / Full-time / Frontend Developer</h1>
