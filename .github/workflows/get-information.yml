@@ -17,6 +17,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: latest
+      - name: Get short commit SHA
+        run: echo "SHORT_COMMIT_SHA=$(git rev-parse --short HEAD)" >> .env
       - name: Install jq
         run: sudo apt-get install -y jq
       - name: Set all secrets to .env

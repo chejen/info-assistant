@@ -52,5 +52,5 @@ generateTemplate()
     if (!html) {
       console.error(`[${new Date()}][ERR] empty template.`);
     }
-    sendMail({ subject: '[GitHub Actions] Weekly Travel in Taipei', html });
+    sendMail({ subject: 'Weekly Travel in Taipei', html });
   });

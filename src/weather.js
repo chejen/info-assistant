@@ -75,5 +75,5 @@ generateTemplate()
     if (!html) {
       console.error(`[${new Date()}][ERR] empty template.`);
     }
-    sendMail({ subject: '[GitHub Actions] Daily Weather', html });
+    sendMail({ subject: 'Daily Weather', html });
   });

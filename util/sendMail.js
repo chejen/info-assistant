@@ -12,9 +12,13 @@ export async function sendMail(config) {
         'pass': process.env.MAIL_SENDER_PASS,
       }
     });
+    const shortSha = process.env.SHORT_COMMIT_SHA
+      ? `[${process.env.SHORT_COMMIT_SHA}]`
+      : '';
     const info = await transporter.sendMail({
       ...config,
-      from: `'Info. Sender' <${process.env.MAIL_SENDER_USER}>`, // TODO
+      subject: `[GitHub Actions]${shortSha} ${config.subject}`,
+      from: `'Info. Sender' <${process.env.MAIL_SENDER_USER}>`,
       to: process.env.MAIL_RECIPIENT,
     });
     console.log('[%s] Message sent: %s', new Date(), info.messageId);
