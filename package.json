@@ -11,8 +11,8 @@
   },
   "packageManager": "yarn@4.0.2",
   "scripts": {
-    "get:info:travel-taipei:dev": "node --env-file=.env src/travel-taipei",
-    "get:info:weather:dev": "node --env-file=.env src/weather"
+    "get:info:travel-taipei": "node --env-file=.env src/travel-taipei",
+    "get:info:weather": "node --env-file=.env src/weather"
   },
   "dependencies": {
     "cheerio": "1.0.0-rc.12",

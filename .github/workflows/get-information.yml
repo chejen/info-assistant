@@ -19,13 +19,13 @@ jobs:
           node-version: latest
       - name: Install jq
         run: sudo apt-get install -y jq
-      - name: Set all secrets to env
+      - name: Set all secrets to .env
         env:
           ALL_SECRETS: ${{ toJSON(secrets) }}
         run: |
-          echo $ALL_SECRETS | jq -r 'to_entries | .[] | "echo \(.key)=\(.value) >> $GITHUB_ENV"' | bash
+          echo $ALL_SECRETS | jq -r 'to_entries | .[] | "echo \(.key)=\(.value) >> .env"' | bash
       - name: Fetch data & send mail
         run: |
           corepack enable
           yarn
-          node src/${{ inputs.file-name }}
+          yarn get:info:${{ inputs.file-name }}
