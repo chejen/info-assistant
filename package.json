@@ -11,6 +11,7 @@
   },
   "packageManager": "yarn@4.0.2",
   "scripts": {
+    "get:info:openings-cr": "node --env-file=.env src/openings-cr",
     "get:info:openings-mj": "node --env-file=.env src/openings-mj",
     "get:info:openings-yr": "node --env-file=.env src/openings-yr",
     "get:info:travel-taipei": "node --env-file=.env src/travel-taipei",
