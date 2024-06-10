@@ -14,6 +14,7 @@
     "get:info:openings-1b": "node --env-file=.env src/openings-1b",
     "get:info:openings-cr": "node --env-file=.env src/openings-cr",
     "get:info:openings-mj": "node --env-file=.env src/openings-mj",
+    "get:info:openings-mp": "node --env-file=.env src/openings-mp",
     "get:info:openings-yr": "node --env-file=.env src/openings-yr",
     "get:info:travel-taipei": "node --env-file=.env src/travel-taipei",
     "get:info:weather": "node --env-file=.env src/weather"

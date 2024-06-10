@@ -1,0 +1,12 @@
+name: Get openings-mp information
+
+on:
+  schedule:
+    - cron: '10 1 * * 6' # 9:10 Sat UTC+8
+
+jobs:
+  job-get-openings-mp-info:
+    uses: ./.github/workflows/get-information.yml
+    secrets: inherit
+    with:
+      file-name: openings-mp
