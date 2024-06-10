@@ -74,6 +74,7 @@ generateTemplate()
   .then(html => {
     if (!html) {
       console.error(`[${new Date()}][ERR] empty template.`);
+      return;
     }
     sendMail({ subject: 'Daily Weather', html });
   });

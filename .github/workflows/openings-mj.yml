@@ -2,6 +2,7 @@ name: Get openings-mj information
 
 on:
   schedule:
+    - cron: '30 12 * * 2' # 20:30 Tue UTC+8
     - cron: '30 1 * * 6' # 9:30 Sat UTC+8
 
 jobs:

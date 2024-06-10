@@ -2,6 +2,7 @@ name: Get openings-yr information
 
 on:
   schedule:
+    - cron: '40 12 * * 2' # 20:40 Tue UTC+8
     - cron: '40 1 * * 6' # 9:40 Sat UTC+8
 
 jobs:

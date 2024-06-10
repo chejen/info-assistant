@@ -3,7 +3,8 @@ import { load } from 'cheerio';
 import { sendMail } from '../util/sendMail.js';
 
 const origin = process.env.INFO_OPENINGS_CR_ORIGIN;
-const activeWithinDays = +(process.env.INFO_OPENINGS_CR_ACTIVE_WITHIN_DAYS || 30);
+const amountPerPage = +process.env.INFO_OPENINGS_CR_AMOUNT_PER_PAGE;
+const activeWithinDays = +process.env.INFO_OPENINGS_CR_ACTIVE_WITHIN_DAYS;
 const idleInMilliseconds = 1234;
 
 const getData = url => fetch(url)
@@ -58,9 +59,12 @@ const generateTemplate = async ({ heading, targetUrl }) => {
     let page = 1;
     let dataPerPage = await getData(`${origin}${targetUrl}`);
     let data = dataPerPage;
-    while (data?.length % 10 === 0) {
+    while (
+      dataPerPage?.length &&
+      dataPerPage?.length % amountPerPage === 0
+    ) {
       await setTimeout(idleInMilliseconds);
-      let dataPerPage = await getData(`${origin}${targetUrl}&page=${++page}`);
+      dataPerPage = await getData(`${origin}${targetUrl}&page=${++page}`);
       data = [...data, ...dataPerPage];
     }
     template = `
