@@ -2,6 +2,7 @@ name: Get openings-mp information
 
 on:
   schedule:
+    # - cron: '10 12 * * 2' # 20:10 Tue UTC+8
     - cron: '10 1 * * 6' # 9:10 Sat UTC+8
 
 jobs:

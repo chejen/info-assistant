@@ -2,7 +2,7 @@ name: Get openings-1b information
 
 on:
   schedule:
-    - cron: '20 12 * * 2' # 20:20 Tue UTC+8
+    # - cron: '20 12 * * 2' # 20:20 Tue UTC+8
     - cron: '20 1 * * 6' # 9:20 Sat UTC+8
 
 jobs:

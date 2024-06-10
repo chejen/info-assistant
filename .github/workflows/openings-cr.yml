@@ -2,7 +2,7 @@ name: Get openings-cr information
 
 on:
   schedule:
-    - cron: '50 12 * * 2' # 20:50 Tue UTC+8
+    # - cron: '50 12 * * 2' # 20:50 Tue UTC+8
     - cron: '50 1 * * 6' # 9:50 Sat UTC+8
 
 jobs:
