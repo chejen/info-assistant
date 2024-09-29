@@ -1,0 +1,18 @@
+name: Reusable workflow to keep specific scheduled workflows alive
+
+on:
+  workflow_call
+
+jobs:
+  job-keep-workflow-alive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+      - name: Enable workflow
+        run: |
+          WORKFLOW_NAME="${{ github.workflow }}"
+          WORKFLOW_ID=$(gh workflow list | grep "$WORKFLOW_NAME" | awk '{print $NF}')
+          gh workflow enable $WORKFLOW_ID
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

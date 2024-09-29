@@ -10,3 +10,5 @@ jobs:
     secrets: inherit
     with:
       file-name: weather
+  job-keep-weather-alive:
+    uses: ./.github/workflows/auto-enable-workflow.yml

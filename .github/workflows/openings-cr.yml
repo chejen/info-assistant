@@ -11,3 +11,5 @@ jobs:
     secrets: inherit
     with:
       file-name: openings-cr
+  job-keep-openings-cr-alive:
+    uses: ./.github/workflows/auto-enable-workflow.yml

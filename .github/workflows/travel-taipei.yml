@@ -10,3 +10,5 @@ jobs:
     secrets: inherit
     with:
       file-name: travel-taipei
+  job-keep-travel-taipei-alive:
+    uses: ./.github/workflows/auto-enable-workflow.yml
