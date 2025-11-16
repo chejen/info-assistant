@@ -1,0 +1,14 @@
+name: Get exhibition-ss information
+
+on:
+  schedule:
+    - cron: '5 10 * * 1' # 18:05 Mon UTC+8
+
+jobs:
+  job-get-exhibition-ss-info:
+    uses: ./.github/workflows/get-information.yml
+    secrets: inherit
+    with:
+      file-name: exhibition-ss
+  job-keep-exhibition-ss-alive:
+    uses: ./.github/workflows/auto-enable-workflow.yml

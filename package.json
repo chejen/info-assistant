@@ -11,6 +11,8 @@
   },
   "packageManager": "yarn@4.0.2",
   "scripts": {
+    "get:info:exhibition-hs": "node --env-file=.env src/exhibition-hs",
+    "get:info:exhibition-ss": "node --env-file=.env src/exhibition-ss",
     "get:info:openings-1b": "node --env-file=.env src/openings-1b",
     "get:info:openings-cr": "node --env-file=.env src/openings-cr",
     "get:info:openings-mj": "node --env-file=.env src/openings-mj",
