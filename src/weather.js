@@ -5,34 +5,34 @@ import { sendMail } from '../util/sendMail.js';
 const baseUrl = process.env.INFO_WEATHER_BASE_URL;
 const targets = (process.env.INFO_WEATHER_TARGETS || '').split(',');
 
-const getData = id => fetch(`${baseUrl}${id}`)
+const getData = id => fetch(`${baseUrl}${id}/weather-forecast/${id.split('/')[1]}`)
   .then(response => response.text())
   .then(text => {
     const $ = load(text);
     const data = [];
 
-    $('[id^="detailIndex"]').each((index, detail) => {
+    $('.daily-list-item').each((index, detail) => {
       data.push({
-        day: $(detail).find('[data-testid="daypartName"]').text(),
-        lowTemp: $(detail).find('[class*="lowTempValue"]').text(),
-        highTemp: $(detail).find('[class*="highTempValue"]').text(),
-        desc: $(detail).find('[data-testid="wxIcon"] span').text(),
-        precip: $(detail).find('[data-testid="PercentageValue"]').first().text(),
+        date: $(detail).find('.date').text().trim(),
+        lowTemp: $(detail).find('.temp-lo').text(),
+        highTemp: $(detail).find('.temp-hi').text(),
+        desc: $(detail).find('.phrase .no-wrap').text(),
+        precip: $(detail).find('.precip').text().trim(),
       });
     });
 
     console.log(`[${new Date()}] ${baseUrl}${id} has parsed.`);
-    return { data, title: $('[data-testid="PresentationName"]').text() };
+    return { data, title: $('h1.header-loc').text() };
   })
   .catch(e => {
     console.error(`[${new Date()}][ERR] failed to execute getData().`);
     throw e;
   });
 
-const convertFahrenheitToCelsius = (fahrenheit) => {
-  const f = fahrenheit.split('°')[0];
-  return isNaN(f) ? '' : Math.round((f - 32) * 0.5556) + '°C';
-}  
+// const convertFahrenheitToCelsius = (fahrenheit) => {
+//   const f = fahrenheit.split('°')[0];
+//   return isNaN(f) ? '' : Math.round((f - 32) * 0.5556) + '°C';
+// }
 
 const generateTemplate = async () => {
   let template = '';
@@ -46,17 +46,14 @@ const generateTemplate = async () => {
           <table style="border-collapse: collapse; border: 1px solid black;">
           ${data.map((el, i) => `
           <tr>
-            <td>${el.day}</td>
+            <td>${el.date}</td>
             <td>${el.desc}</td>
             <td>
               <span style="color: ${+el.precip.split('%')[0] > 30 ? 'red' : 'black'}">
                 precipitation: ${el.precip}
               </span>
             </td>
-            <td>
-              ${convertFahrenheitToCelsius(el.lowTemp)} -
-              ${convertFahrenheitToCelsius(el.highTemp)}
-            </td>
+            <td>${el.lowTemp} - ${el.highTemp}</td>
           </tr>`).join('')}
           </table>
         </p>
