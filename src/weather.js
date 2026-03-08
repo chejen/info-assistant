@@ -21,7 +21,7 @@ const getData = id => fetch(`${baseUrl}${id}/weather-forecast/${id.split('/')[1]
       });
     });
 
-    console.log(`[${new Date()}] ${baseUrl}${id} has parsed.`);
+    console.log(`[${new Date()}] ${baseUrl}${id}/weather-forecast/${id.split('/')[1]} has parsed.`);
     return { data, title: $('h1.header-loc').text() };
   })
   .catch(e => {
@@ -29,10 +29,10 @@ const getData = id => fetch(`${baseUrl}${id}/weather-forecast/${id.split('/')[1]
     throw e;
   });
 
-// const convertFahrenheitToCelsius = (fahrenheit) => {
-//   const f = fahrenheit.split('°')[0];
-//   return isNaN(f) ? '' : Math.round((f - 32) * 0.5556) + '°C';
-// }
+const convertFahrenheitToCelsius = (fahrenheit) => {
+  const f = fahrenheit.split('°')[0];
+  return isNaN(f) ? '' : Math.round((f - 32) * 0.5556) + '°C';
+}
 
 const generateTemplate = async () => {
   let template = '';
@@ -53,7 +53,10 @@ const generateTemplate = async () => {
                 precipitation: ${el.precip}
               </span>
             </td>
-            <td>${el.lowTemp} - ${el.highTemp}</td>
+            <td>
+              ${convertFahrenheitToCelsius(el.lowTemp)} -
+              ${convertFahrenheitToCelsius(el.highTemp)}
+            </td>
           </tr>`).join('')}
           </table>
         </p>
